@@ -14,29 +14,8 @@ import {
     FlatList
 } from 'react-native';
 
-// const DATA = [
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//     title: 'First Item',
-//   },
-//   {
-//     idd: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-//     title: 'Second Item',
-//   },
-//   {
-//     idd: '58694a0f-3da1-471f-bd96-145571e29d72',
-//     title: 'Third Item',
-//   },
-// ];
-
-
-
 
 var Oceanmarket = 'https://market.oceanprotocol.com/'
-var DeltaDaoWebsite = 'https://www.delta-dao.com'
-
-var urlFinal = "https://aquarius.oceanprotocol.com/api/v1/aquarius/assets/ddo/query"
-var urltest = 'https://reactnative.dev/movies.json'
 
 console.log('///////////','\nstartfile')
 
@@ -51,6 +30,8 @@ const Deck = (props) => (
     ])}>
       <Text style={styles.headline} >{props.headline}</Text>
     </TouchableHighlight>
+
+    <Text>{props.link}</Text>
 
   </View>
 );
@@ -70,25 +51,11 @@ const App = () => {
     method: "POST",
     body: "{\r\n    \"cancelToken\": {\r\n        \"promise\": {}\r\n    },\r\n    \"offset\": 9,\r\n    \"page\": 1,\r\n    \"query\": {\r\n        \"query_string\": {\r\n            \"query\": \"(chainId:4 OR chainId:3) AND -isInPurgatory:true \"\r\n        }\r\n    },\r\n    \"sort\": {\r\n        \"created\": -1\r\n    }\r\n}",
     headers: headersList
-  }).then(function(response) {
-    return response.text();
-  }).then(function(data) {
-    setData(JSON.parse(data));
   })
+  .then((response) => response.json())
+  .then((json) => setData(json));
+
   
-
-  const renderItem = ({ item }) => (
-    <Item name={item.nameapp} type={item.type} discription={item.discription} author={item.author} />
-  );
-   const Item = ({ item }) => (
-    <View style={styles.item}>
-      <Text>{nameapp}</Text>
-      <Text>{type}</Text>
-      <Text>{discription}</Text>
-      <Text>{author}</Text>
-    </View> 
-  );
-
 
   return (
     <SafeAreaView style={styles.container}> 
@@ -102,12 +69,10 @@ const App = () => {
         <Text style={{color: 'white',}}>A marketplace to find, publish and trade data sets in the Ocean Network.</Text>
       </TouchableHighlight>
       
-
-
       <FlatList
-        data = {data1}
-        renderItem={renderItem}
-        keyExtractor={item => item.service}
+        data = {data1.results}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <Deck headline={item.id} link={item.id}/>}
       />
 
     </SafeAreaView>
@@ -121,12 +86,6 @@ const styles = StyleSheet.create({
     padding: 50,
     flex: 1,
     backgroundColor: 'black',
-    //alignItems: 'center',
-    //justifyContent: 'center',
-  },
-  logo: {
-    width: 60,
-    height: 60,
   },
   item: {
     backgroundColor: 'white',
@@ -141,8 +100,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }, //Für Deck
   headline: {
+    color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
