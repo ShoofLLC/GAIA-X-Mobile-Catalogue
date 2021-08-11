@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
-    StyleSheet, 
-    Text, 
+    StyleSheet,
+    Text,
+    Image,
     View, 
     Linking, 
     TouchableHighlight, 
@@ -10,7 +11,9 @@ import {
     FlatList
 } from 'react-native';
 
-var Oceanmarket = 'https://market.oceanprotocol.com/'
+var Oceanmarket = 'https://market.oceanprotocol.com/';
+
+
 
 const Deck = (props) => (
   <View style={styles.item}>
@@ -28,6 +31,7 @@ const Deck = (props) => (
 
 const App = () => {
   const [data1, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   let headersList = {
     "Accept": "*/*",
@@ -35,20 +39,21 @@ const App = () => {
     "Content-Type": "application/json"
   }
    
-  fetch("https://aquarius.oceanprotocol.com/api/v1/aquarius/assets/ddo/query", { 
-    method: "POST",
-    body: "{\r\n    \"cancelToken\": {\r\n        \"promise\": {}\r\n    },\r\n    \"offset\": 9,\r\n    \"page\": 1,\r\n    \"query\": {\r\n        \"query_string\": {\r\n            \"query\": \"(chainId:4 OR chainId:3) AND -isInPurgatory:true \"\r\n        }\r\n    },\r\n    \"sort\": {\r\n        \"created\": -1\r\n    }\r\n}",
-    headers: headersList
-  })
-  .then((response) => response.json())
-  .then((json) => setData(json));
-
-
+  useEffect(() => {
+    fetch("https://aquarius.oceanprotocol.com/api/v1/aquarius/assets/ddo/query", { 
+      method: "POST",
+      body: `{\r\n    \"cancelToken\": {\r\n        \"promise\": {}\r\n    },\r\n    \"offset\": 9,\r\n    \"page\": ${page},\r\n    \"query\": {\r\n        \"query_string\": {\r\n            \"query\": \"(chainId:4 OR chainId:3) AND -isInPurgatory:true \"\r\n        }\r\n    },\r\n    \"sort\": {\r\n        \"created\": -1\r\n    }\r\n}`,
+      headers: headersList
+    })
+    .then((response) => response.json())
+    .then((json) => setData(json));
+  }, [page])
+  
 
   return (
     <SafeAreaView style={styles.container}> 
 
-      <Text style={styles.text}>Ocean Market</Text>
+      <Text style={styles.ueberschrift}>Ocean Market</Text>
 
       <TouchableHighlight onPress = {() => Alert.alert('Open Website', 'Leaving App and open the Ocan Marketplace?', [
           {text: "Yes", onPress: () => Linking.openURL(Oceanmarket)},
@@ -57,20 +62,35 @@ const App = () => {
         <Text style={{color: 'white',}}>A marketplace to find, publish and trade data sets in the Ocean Network.</Text>
       </TouchableHighlight>
       
+      
+      
       <FlatList
         data = {data1.results}
         keyExtractor={item => item.id}
 
-        renderItem={({ item }) => <Deck 
+        renderItem={({ item }) => {
 
-          headline={item.service[0].attributes.main.type}
-          date={item.service[0].attributes.main.dateCreated} 
-          author={item.service[0].attributes.main.author}
+        const metadata = item.service.find(service => service.type === 'metadata')
+
+        return <Deck 
+          headline={metadata.attributes.main.type}
+          date={metadata.attributes.main.dateCreated} 
+          author={metadata.attributes.main.author}
           id={item.id}
-          description={item.service[0].attributes.additionalInformation.description}
+          description={metadata.attributes.additionalInformation.description}
 
-        />}
+        />}}
       />
+
+      <TouchableHighlight onPress = {() => setPage(page + 1)}>
+        <Text style={{color: 'white'}}>Next Page</Text>
+      </TouchableHighlight>
+
+      <Text style={{color: 'white'}}>current Page: {page}</Text>
+
+      <TouchableHighlight onPress = {() => setPage(page - 1)}>
+        <Text style={{color: 'white'}}>Last Page</Text>
+      </TouchableHighlight>
 
     </SafeAreaView>
   );
@@ -91,13 +111,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 10, 
   },
-  text: {
+  ueberschrift: {
     color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Flatlist Deck
   headline: {
     color: 'black',
     fontWeight: 'bold',
