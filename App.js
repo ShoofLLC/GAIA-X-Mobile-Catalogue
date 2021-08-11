@@ -1,17 +1,12 @@
-//Created by Felix Wegener
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
     StyleSheet, 
-    ActivityIndicator, 
     Text, 
     View, 
     Linking, 
-    Image,
     TouchableHighlight, 
     SafeAreaView, 
     Alert, 
-    Button,
-    filter,
     FlatList
 } from 'react-native';
 
