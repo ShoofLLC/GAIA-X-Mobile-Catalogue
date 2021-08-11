@@ -1,3 +1,4 @@
+//Created by Felix Wegener
 import React, { useEffect, useState } from 'react';
 import { 
     StyleSheet, 
@@ -14,31 +15,23 @@ import {
     FlatList
 } from 'react-native';
 
-
 var Oceanmarket = 'https://market.oceanprotocol.com/'
-
-console.log('///////////','\nstartfile')
-
-
 
 const Deck = (props) => (
   <View style={styles.item}>
 
-    <TouchableHighlight onPress= {() => Alert.alert('Title', 'message', [
-      {text: 'yes', onPress: () => console.log('Pressed yes')},
-      {text: 'no', onPress: () => console.log('Pressed no')},
-    ])}>
-      <Text style={styles.headline} >{props.headline}</Text>
-    </TouchableHighlight>
-
-    <Text>{props.link}</Text>
+    <Text style={styles.headline}>{props.headline}</Text>
+    <Text style={styles.defaulttext}>Created by: {props.author}</Text>
+    <Text style={styles.defaulttext}>Created on: {props.date}</Text>
+    <Text style={styles.defaulttext}>Id: {props.id}</Text>
+    <Text style={styles.defaulttext}>Description: {props.description}</Text>
 
   </View>
 );
 
 
+
 const App = () => {
-  const [isLoading, setLoading] = useState(true);
   const [data1, setData] = useState([]);
 
   let headersList = {
@@ -55,7 +48,7 @@ const App = () => {
   .then((response) => response.json())
   .then((json) => setData(json));
 
-  
+
 
   return (
     <SafeAreaView style={styles.container}> 
@@ -64,7 +57,7 @@ const App = () => {
 
       <TouchableHighlight onPress = {() => Alert.alert('Open Website', 'Leaving App and open the Ocan Marketplace?', [
           {text: "Yes", onPress: () => Linking.openURL(Oceanmarket)},
-          {text: "No", onPress: () => console.log("Pressed No")},
+          {text: "No"},
         ])}>
         <Text style={{color: 'white',}}>A marketplace to find, publish and trade data sets in the Ocean Network.</Text>
       </TouchableHighlight>
@@ -72,7 +65,16 @@ const App = () => {
       <FlatList
         data = {data1.results}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <Deck headline={item.id} link={item.id}/>}
+
+        renderItem={({ item }) => <Deck 
+
+          headline={item.service[0].attributes.main.type}
+          date={item.service[0].attributes.main.dateCreated} 
+          author={item.service[0].attributes.main.author}
+          id={item.id}
+          description={item.service[0].attributes.additionalInformation.description}
+
+        />}
       />
 
     </SafeAreaView>
@@ -100,15 +102,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center',
-  }, //Für Deck
+  },
   headline: {
     color: 'black',
-    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
     marginTop: 0,
     width: 200,
   },
+  defaulttext: {
+    color: 'black',
+    fontSize: 12,
+    textAlign: 'center',
+  }
 });
   
 
