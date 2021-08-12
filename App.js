@@ -12,19 +12,22 @@ import {
 } from 'react-native';
 
 var Oceanmarket = 'https://market.oceanprotocol.com/';
+var AssetLink = 'https://market.oceanprotocol.com/asset/';
 
+const Kachel = (props) => (
+  <TouchableHighlight onPress= {() => Alert.alert('Open Website', 'Leaving App and open the webside for this product', [
+    {text: "Yes", onPress: () => Linking.openURL(AssetLink+props.id)},
+    {text: "No"},
+  ])}>
+    <View style={styles.item}>
 
+      <Text style={styles.headline}>{props.headline}</Text>
+      <Text style={styles.defaulttext}>Created by:      {props.author}</Text>
+      <Text style={styles.defaulttext}>Created on:      {props.date}</Text>
+      <Text style={styles.defaulttext}>Description:     {props.description}</Text>
 
-const Deck = (props) => (
-  <View style={styles.item}>
-
-    <Text style={styles.headline}>{props.headline}</Text>
-    <Text style={styles.defaulttext}>Created by: {props.author}</Text>
-    <Text style={styles.defaulttext}>Created on: {props.date}</Text>
-    <Text style={styles.defaulttext}>Id: {props.id}</Text>
-    <Text style={styles.defaulttext}>Description: {props.description}</Text>
-
-  </View>
+    </View>
+  </TouchableHighlight>
 );
 
 
@@ -53,7 +56,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}> 
 
-      <Text style={styles.ueberschrift}>Ocean Market</Text>
+      <Text style={styles.ueberschrift}>Ocean portable Market</Text>
 
       <TouchableHighlight onPress = {() => Alert.alert('Open Website', 'Leaving App and open the Ocan Marketplace?', [
           {text: "Yes", onPress: () => Linking.openURL(Oceanmarket)},
@@ -72,7 +75,8 @@ const App = () => {
 
         const metadata = item.service.find(service => service.type === 'metadata')
 
-        return <Deck 
+        return <Kachel 
+        
           headline={metadata.attributes.main.type}
           date={metadata.attributes.main.dateCreated} 
           author={metadata.attributes.main.author}
@@ -82,15 +86,17 @@ const App = () => {
         />}}
       />
 
-      <TouchableHighlight onPress = {() => setPage(page + 1)}>
-        <Text style={{color: 'white'}}>Next Page</Text>
-      </TouchableHighlight>
+      <View style={{flexDirection: "row"}}>  
+        <TouchableHighlight onPress = {() => setPage(page - 1)}>
+          <Text style={{color: 'white'}}>Last Page     </Text>
+        </TouchableHighlight>
 
-      <Text style={{color: 'white'}}>current Page: {page}</Text>
+        <Text style={{color: 'white'}}>current Page: {page}     </Text>
 
-      <TouchableHighlight onPress = {() => setPage(page - 1)}>
-        <Text style={{color: 'white'}}>Last Page</Text>
-      </TouchableHighlight>
+        <TouchableHighlight onPress = {() => setPage(page + 1)}>
+          <Text style={{color: 'white'}}>Next Page</Text>
+        </TouchableHighlight>
+      </View>
 
     </SafeAreaView>
   );
@@ -129,7 +135,7 @@ const styles = StyleSheet.create({
   defaulttext: {
     color: 'black',
     fontSize: 12,
-    textAlign: 'center',
+    //textAlign: 'center',
   }
 });
   
