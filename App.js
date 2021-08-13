@@ -1,34 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { 
-    StyleSheet,
-    Text,
-    Image,
-    View, 
-    Linking, 
-    TouchableHighlight, 
-    SafeAreaView, 
-    Alert, 
-    FlatList
+  Text,
+  View, 
+  Linking, 
+  TouchableHighlight, 
+  SafeAreaView, 
+  Alert, 
+  FlatList
 } from 'react-native';
 
-var Oceanmarket = 'https://market.oceanprotocol.com/';
-var AssetLink = 'https://market.oceanprotocol.com/asset/';
-
-const Kachel = (props) => (
-  <TouchableHighlight onPress= {() => Alert.alert('Open Website', 'Leaving App and open the webside for this product', [
-    {text: "Yes", onPress: () => Linking.openURL(AssetLink+props.id)},
-    {text: "No"},
-  ])}>
-    <View style={styles.item}>
-
-      <Text style={styles.headline}>{props.headline}</Text>
-      <Text style={styles.defaulttext}>Created by:      {props.author}</Text>
-      <Text style={styles.defaulttext}>Created on:      {props.date}</Text>
-      <Text style={styles.defaulttext}>Description:     {props.description}</Text>
-
-    </View>
-  </TouchableHighlight>
-);
+import styles from './CSS/css';
+import Kachel from './Objekte/Kacheln';
 
 
 
@@ -57,12 +39,12 @@ const App = () => {
     <SafeAreaView style={styles.container}> 
 
       <Text style={styles.ueberschrift}>Ocean portable Market</Text>
-
+          
       <TouchableHighlight onPress = {() => Alert.alert('Open Website', 'Leaving App and open the Ocan Marketplace?', [
-          {text: "Yes", onPress: () => Linking.openURL(Oceanmarket)},
-          {text: "No"},
-        ])}>
-        <Text style={{color: 'white',}}>A marketplace to find, publish and trade data sets in the Ocean Network.</Text>
+              {text: "Yes", onPress: () => Linking.openURL('https://market.oceanprotocol.com/')},
+              {text: "No"},
+          ])}>
+          <Text style={{color: 'white',}}>A marketplace to find, publish and trade data sets in the Ocean Network.</Text>
       </TouchableHighlight>
       
       
@@ -73,21 +55,22 @@ const App = () => {
 
         renderItem={({ item }) => {
 
-        const metadata = item.service.find(service => service.type === 'metadata')
+          const metadata = item.service.find(service => service.type === 'metadata')
 
-        return <Kachel 
-        
-          headline={metadata.attributes.main.type}
-          date={metadata.attributes.main.dateCreated} 
-          author={metadata.attributes.main.author}
-          id={item.id}
-          description={metadata.attributes.additionalInformation.description}
+          return <Kachel 
+          
+            headline={metadata.attributes.main.type}
+            date={metadata.attributes.main.dateCreated} 
+            author={metadata.attributes.main.author}
+            id={item.id}
+            description={metadata.attributes.additionalInformation.description}
 
-        />}}
+          />
+        }}
       />
 
       <View style={{flexDirection: "row"}}>  
-        <TouchableHighlight onPress = {() => setPage(page - 1)}>
+        <TouchableHighlight onPress = {() => {if(page > 1 ) {setPage(page - 1)}} }>
           <Text style={{color: 'white'}}>Last Page     </Text>
         </TouchableHighlight>
 
@@ -101,43 +84,5 @@ const App = () => {
     </SafeAreaView>
   );
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 50,
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  item: {
-    backgroundColor: 'white',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10, 
-  },
-  ueberschrift: {
-    color: 'white',
-    fontSize: 25,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Flatlist Deck
-  headline: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 0,
-    width: 200,
-  },
-  defaulttext: {
-    color: 'black',
-    fontSize: 12,
-    //textAlign: 'center',
-  }
-});
-  
 
 export default App;
