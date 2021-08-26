@@ -6,7 +6,7 @@ import styles from '../css/header'
 export default function Header(): ReactElement {
   return (
     <>
-      <Text style={styles.heading}>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
       <TouchableHighlight
         onPress={() =>
           Alert.alert(
@@ -22,7 +22,7 @@ export default function Header(): ReactElement {
           )
         }
       >
-        <Text style={{ color: 'white' }}>{tagline}</Text>
+        <Text style={styles.desc}>{tagline}</Text>
       </TouchableHighlight>
     </>
   )

@@ -30,6 +30,17 @@ export interface SearchQuery {
   }
 }
 
+export const defaultQuery = {
+  offset: 9,
+  page: 1,
+  query: {
+    query_string: {
+      query: '(chainId:2021000) AND -isInPurgatory:true'
+    }
+  },
+  sort: { created: -1 }
+}
+
 export function transformQueryResult(
   {
     results,

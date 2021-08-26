@@ -1,31 +1,29 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FlatList, Text, TouchableHighlight, View } from 'react-native'
 import axios from 'axios'
-import { queryMetadata, QueryResult } from '../utils/aquarius'
+import {
+  defaultQuery,
+  queryMetadata,
+  QueryResult,
+  SearchQuery
+} from '../utils/aquarius'
 import Asset from './Asset'
 import Footer from './Footer'
+import Pagination from './Pagination'
+import Search from './Search'
 
 export default function Catalogue(): ReactElement {
   const [data, setData] = useState<QueryResult>()
-  const [page, setPage] = useState(1)
+  const [query, setQuery] = useState<SearchQuery>(defaultQuery)
 
-  const initialQuery = {
-    offset: 9,
-    page: 1,
-    query: {
-      query_string: {
-        query: '(chainId:2021000) AND -isInPurgatory:true'
-      }
-    },
-    sort: { created: -1 }
-  }
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     const fetch = async () => {
       const source = axios.CancelToken.source()
       const queryResult = await queryMetadata(
         {
-          ...initialQuery,
+          ...query,
           page: page
         },
         source.token
@@ -33,7 +31,7 @@ export default function Catalogue(): ReactElement {
       setData(queryResult)
     }
     fetch()
-  }, [page])
+  }, [page, query])
 
   return (
     <>
@@ -42,11 +40,14 @@ export default function Catalogue(): ReactElement {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Asset {...item} />}
       />
-      <Footer
-        page={data?.page}
-        totalPages={data?.totalPages}
-        setPage={setPage}
-      />
+      <Footer>
+        <Pagination
+          page={data?.page}
+          totalPages={data?.totalPages}
+          setPage={setPage}
+        />
+        <Search onSearchQueryChanged={setQuery} />
+      </Footer>
     </>
   )
 }

@@ -1,13 +1,15 @@
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
-  footer: {
-    backgroundColor: 'black',
+  pagination: {
+    flexDirection: 'row',
+    height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: 'auto'
   },
   text: {
-    color: 'white'
+    color: 'black'
   }
 })
 

@@ -1,40 +1,25 @@
-import React, { ReactElement } from 'react'
-import { Text, TouchableHighlight, View } from 'react-native'
-
-import styles from '../css/footer'
+import React, { ReactElement, ReactNode, useRef } from 'react'
+import BottomSheet from 'reanimated-bottom-sheet'
 
 export default function Footer({
-  page,
-  totalPages,
-  setPage
+  children
 }: {
-  page?: number
-  totalPages?: number
-  setPage: (page: number) => void
+  children: ReactNode
 }): ReactElement {
+  const sheetRef = useRef<BottomSheet>(null)
+
+  const renderContent = () => {
+    return children
+  }
+
   return (
-    <View style={styles.footer}>
-      <TouchableHighlight
-        onPress={() => {
-          page && setPage(page - 1)
-        }}
-        disabled={page === undefined || page <= 1}
-      >
-        <Text style={styles.text}>{' << '}</Text>
-      </TouchableHighlight>
-
-      <Text style={styles.text}>{page}</Text>
-
-      <TouchableHighlight
-        onPress={() => {
-          page && setPage(page + 1)
-        }}
-        disabled={
-          page === undefined || totalPages === undefined || page >= totalPages
-        }
-      >
-        <Text style={styles.text}>{' >> '}</Text>
-      </TouchableHighlight>
-    </View>
+    <BottomSheet
+      ref={sheetRef}
+      snapPoints={['40%', '1%']}
+      initialSnap={1}
+      borderRadius={10}
+      renderContent={renderContent}
+      enabledContentTapInteraction={false}
+    />
   )
 }
