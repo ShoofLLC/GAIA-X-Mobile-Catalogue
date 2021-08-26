@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Mobile Gaia-X Catalogue Demonstrator",
-    "slug": "Gaia-X-Catalogue-Demo",
     "version": "0.0.2",
+    "slug": "mvg-mobile-catalogue",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000022"
       },
-      "package": "deltadao.gx.mobile_catalogue_002"
+      "package": "eu.deltadao.mvg_mobile_catalogue",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/DeltaDAO_Logo.png"
