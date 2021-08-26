@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Text, View, Linking, TouchableHighlight, Alert } from 'react-native'
-import { portalUri } from '../../app.config'
+import { portalUri } from '../../config'
 import { DDO } from '../utils/aquarius'
 import Dotdotdot from 'react-dotdotdot'
 import removeMarkdown from 'remove-markdown'

@@ -1,5 +1,5 @@
 import axios, { CancelToken, AxiosResponse } from 'axios'
-import { metadataCacheUri } from '../../app.config'
+import { metadataCacheUri } from '../../config'
 
 export interface DDO {
   id: string

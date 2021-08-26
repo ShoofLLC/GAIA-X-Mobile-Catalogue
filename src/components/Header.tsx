@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Alert, Linking, Text, TouchableHighlight } from 'react-native'
-import { title, tagline, portalUri } from '../../app.config'
+import { title, tagline, portalUri } from '../../config'
 import styles from '../css/header'
 
 export default function Header(): ReactElement {

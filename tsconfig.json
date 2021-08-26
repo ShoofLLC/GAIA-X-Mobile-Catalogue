@@ -13,6 +13,6 @@
     "noImplicitAny": true
   },
   "exclude": ["node_modules", "public", ".cache", "*.js"],
-  "include": ["./src/**/*", "./app.config.js", "./App.tsx"],
+  "include": ["./src/**/*", "./config.js", "./App.tsx"],
   "extends": "expo/tsconfig.base"
 }
