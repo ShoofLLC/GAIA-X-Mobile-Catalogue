@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react'
 import { Text, View, Linking, TouchableHighlight, Alert } from 'react-native'
 import { portalUri } from '../../config'
 import { DDO } from '../utils/aquarius'
-import Dotdotdot from 'react-dotdotdot'
 import removeMarkdown from 'remove-markdown'
 
 import styles from '../css/asset'
+import { formatDistance } from 'date-fns'
 
 interface Metadata {
   attributes: {
@@ -47,11 +47,16 @@ export default function Asset(asset: DDO): ReactElement {
     >
       <View style={styles.asset}>
         <Text style={styles.headline}>{name}</Text>
-        <Text style={styles.defaulttext}>Created by: {author}</Text>
-        <Text style={styles.defaulttext}>Created on: {dateCreated}</Text>
-        <Dotdotdot clamp={3}>
-          <Text style={styles.defaulttext}>{removeMarkdown(description)}</Text>
-        </Dotdotdot>
+        <Text style={styles.created}>
+          Created{' '}
+          {formatDistance(new Date(dateCreated), new Date(), {
+            addSuffix: true
+          })}{' '}
+          by <Text style={styles.author}>{author}</Text>
+        </Text>
+        <Text style={styles.description} numberOfLines={5}>
+          {removeMarkdown(description)}
+        </Text>
       </View>
     </TouchableHighlight>
   )

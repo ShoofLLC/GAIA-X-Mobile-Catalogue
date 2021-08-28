@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import Catalogue from './src/components/Catalogue'
 import Header from './src/components/Header'
 import styles from './src/css/app'

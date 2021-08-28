@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native'
+import AppStyles from './AppStyles'
 
 const styles = StyleSheet.create({
   asset: {
-    backgroundColor: 'white',
+    backgroundColor: AppStyles.color.white,
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -10,16 +11,20 @@ const styles = StyleSheet.create({
   },
   // Flatlist Deck
   headline: {
-    color: 'black',
+    color: AppStyles.color.black,
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 0,
-    width: 200
+    marginTop: 0
   },
-  defaulttext: {
-    color: 'black',
-    fontSize: 12
-    //textAlign: 'center',
+  created: {
+    color: AppStyles.color.secondary
+  },
+  author: {
+    fontWeight: 'bold'
+  },
+  description: {
+    marginTop: 5,
+    color: AppStyles.color.black
   }
 })
 

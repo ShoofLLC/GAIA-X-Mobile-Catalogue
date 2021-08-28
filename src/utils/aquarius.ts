@@ -31,7 +31,7 @@ export interface SearchQuery {
 }
 
 export const defaultQuery = {
-  offset: 9,
+  offset: 3,
   page: 1,
   query: {
     query_string: {

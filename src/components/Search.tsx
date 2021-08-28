@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { View } from 'react-native'
 import { defaultQuery, SearchQuery } from '../utils/aquarius'
 import Input from './Input'
 
@@ -18,7 +19,7 @@ export default function Search({
     }`
     onSearchQueryChanged({
       ...defaultQuery,
-      offset: assetsPerPage,
+      offset: assetsPerPage === 0 ? 9 : assetsPerPage,
       query: {
         query_string: {
           query: searchString
@@ -28,12 +29,12 @@ export default function Search({
   }, [search, assetsPerPage])
 
   return (
-    <>
-      <Input placeholder="Search" onInputChanged={setSearch} />
+    <View>
+      <Input placeholder="Search" onInputChanged={setSearch} submit="Search" />
       <Input
         placeholder="Assets per page"
         onInputChanged={(number) => setAssetsPerPage(Number(number))}
       />
-    </>
+    </View>
   )
 }

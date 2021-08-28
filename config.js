@@ -1,7 +1,7 @@
 module.exports = {
-  title: 'Mobile MVG Catalogue',
+  title: 'deltaDAO MVG Mobile Catalogue',
   tagline:
-    'A portable catalogue to browse and discover data assets in the Gaia-X test network. Powered by Ocean Protocol.',
+    'A portable catalogue to browse and discover Data and their Self-Descriptions in the Gaia-X Test Network. Powered by Ocean Protocol.',
   metadataCacheUri: 'https://aquarius.gaiax.delta-dao.com',
   portalUri: 'https://portal.minimal-gaia-x.eu/'
 }

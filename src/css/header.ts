@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native'
+import AppStyles from './AppStyles'
 
 const styles = StyleSheet.create({
+  header: {
+    padding: 20
+  },
   title: {
     textAlign: 'center',
-    color: 'white',
+    color: AppStyles.color.white,
     fontSize: 25,
     fontWeight: 'bold',
     alignItems: 'center',
@@ -11,9 +15,8 @@ const styles = StyleSheet.create({
   },
   desc: {
     textAlign: 'center',
-    color: 'white',
-    marginTop: 10,
-    marginBottom: 20
+    color: AppStyles.color.white,
+    marginTop: 10
   }
 })
 

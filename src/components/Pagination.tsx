@@ -20,10 +20,14 @@ export default function Pagination({
         }}
         disabled={page === undefined || page <= 1}
       >
-        <Text style={styles.text}>{' << '}</Text>
+        <Text style={styles.button}>{' << '}</Text>
       </TouchableHighlight>
 
-      <Text style={styles.text}>{page}</Text>
+      <Text style={styles.page}>
+        {page}
+        {' / '}
+        {totalPages}
+      </Text>
 
       <TouchableHighlight
         onPress={() => {
@@ -33,7 +37,7 @@ export default function Pagination({
           page === undefined || totalPages === undefined || page >= totalPages
         }
       >
-        <Text style={styles.text}>{' >> '}</Text>
+        <Text style={styles.button}>{' >> '}</Text>
       </TouchableHighlight>
     </View>
   )

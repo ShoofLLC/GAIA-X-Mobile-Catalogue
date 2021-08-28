@@ -2,6 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "wix.vscode-import-cost"
+    "wix.vscode-import-cost",
+    "bycedric.vscode-expo"
   ]
 }

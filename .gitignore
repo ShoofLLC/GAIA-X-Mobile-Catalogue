@@ -9,5 +9,8 @@ npm-debug.*
 *.orig.*
 web-build/
 
+# expo keystore
+@deltadao*
+
 # macOS
 .DS_Store
