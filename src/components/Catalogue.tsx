@@ -1,6 +1,8 @@
+import axios from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import axios from 'axios'
+
+import styles from '../css/catalogue'
 import {
   defaultQuery,
   queryMetadata,
@@ -11,7 +13,6 @@ import Asset from './Asset'
 import Footer from './Footer'
 import Pagination from './Pagination'
 import Search from './Search'
-import styles from '../css/catalogue'
 
 export default function Catalogue(): ReactElement {
   const [data, setData] = useState<QueryResult>()

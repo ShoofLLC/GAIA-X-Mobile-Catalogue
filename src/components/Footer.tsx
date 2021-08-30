@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
-import { Button, Touchable, View } from 'react-native'
+import { View } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
 import styles from '../css/footer'

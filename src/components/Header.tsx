@@ -1,12 +1,5 @@
 import React, { ReactElement } from 'react'
-import {
-  Alert,
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from 'react-native'
+import { Alert, Linking, Text, TouchableHighlight, View } from 'react-native'
 import { title, tagline, portalUri } from '../../config'
 import styles from '../css/header'
 
